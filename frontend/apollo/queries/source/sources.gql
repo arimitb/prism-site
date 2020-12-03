@@ -1,0 +1,9 @@
+query Sources {
+  sources {
+    id
+    title
+    articles {
+      id
+    }
+  }
+}

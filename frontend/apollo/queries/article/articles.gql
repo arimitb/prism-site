@@ -1,0 +1,15 @@
+query Articles {
+  articles {
+    id
+    title
+    parents {
+      id
+    }
+    children {
+      id
+    }
+    source {
+      id
+    }
+  }
+}
