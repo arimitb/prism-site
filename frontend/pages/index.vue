@@ -23,6 +23,18 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="index-page">
+    <AppHeader />
+    <BlobBoard />
   </div>
 </template>
+
+<style>
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+</style>

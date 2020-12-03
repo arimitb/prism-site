@@ -1,0 +1,30 @@
+:root {
+  --un: 1.75rem;
+  --ln: 0.1rem;
+
+  --base-font: calc(var(--un) / 1.5)/var(--un) 'DM Sans', sans-serif;
+
+  --fg-col: #111;
+  --bg-col: #fff;
+}
+
+p {
+  font: var(--base-font);
+}
+
+h2 {
+  font: var(--base-font);
+  font-size: calc(var(--un) / 1);
+}
+
+.base-font {
+  font: var(--base-font)
+}
+
+.fg-col {
+  color: var(--fg-col);
+}
+
+.no-margin {
+  margin: 0;
+}
