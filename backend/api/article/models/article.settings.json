@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "name": "article",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "author": {
+      "type": "string",
+      "required": true,
+      "default": "Anonymous"
+    },
+    "date": {
+      "type": "date",
+      "required": true,
+      "default": "2020-12-03T11:00:00.000Z"
+    },
+    "source": {
+      "model": "source",
+      "via": "articles"
+    },
+    "parents": {
+      "collection": "article",
+      "via": "children",
+      "dominant": true
+    },
+    "children": {
+      "collection": "article",
+      "via": "parents"
+    }
+  }
+}
