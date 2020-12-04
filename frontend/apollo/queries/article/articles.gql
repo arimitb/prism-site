@@ -11,5 +11,7 @@ query Articles {
     source {
       id
     }
+    position_x
+    position_y
   }
 }

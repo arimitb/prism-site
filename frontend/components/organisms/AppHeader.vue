@@ -17,7 +17,7 @@
 
 .app-header > .app-header-menu-icon {
   width: calc(2 * var(--un));
-  height: calc(2 * var(--un));
+  height: 100%;
   border-right: var(--ln) solid var(--fg-col);
 }
 

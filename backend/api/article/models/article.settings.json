@@ -41,6 +41,16 @@
     "children": {
       "collection": "article",
       "via": "parents"
+    },
+    "position_x": {
+      "type": "float",
+      "required": false,
+      "default": 0
+    },
+    "position_y": {
+      "type": "float",
+      "default": 0,
+      "required": false
     }
   }
 }

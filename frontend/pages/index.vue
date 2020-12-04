@@ -25,7 +25,7 @@ export default {
 <template>
   <div class="index-page">
     <AppHeader />
-    <BlobBoard />
+    <ArticleBoard :articles="articles" />
   </div>
 </template>
 
@@ -35,6 +35,15 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
+  height: calc(2 * var(--un));
   z-index: 100;
+}
+
+.article-board {
+  position: absolute;
+  top: calc(2 * var(--un));
+  left: 0;
+  width: calc(100% + 20px);
+  height: calc(100% - (2 * var(--un)) + 20px);
 }
 </style>
