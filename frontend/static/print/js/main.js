@@ -23,6 +23,12 @@ function appendArticles () {
   let html = ''
 
   for (article of articles) {
+    let source = null
+
+    if (article.source) {
+      source = article.source.title
+    }
+
     html = html.concat(`
       <article data-article-id="${article.id}">
         <h1>${article.title}</h1>
@@ -35,6 +41,7 @@ function appendArticles () {
         </div>
         <div class="article-content">
           ${converter.makeHtml(article.content)}
+          ${source ? `<span class="source">Source: “${source}”</span>` : ``}
         </div>
       </article>
     `)
@@ -70,12 +77,14 @@ function getFirstAndLastPages (pages) {
       if (lastId > -1) {
         const oldArticle = articles.find(article => article.id == lastId)
         oldArticle.lastPage = i - 1
+        pages[i - 1].element.classList.add('article-last-page')
       }
 
       pages[i].element.classList.add('article-first-page')
     } else if (i == pages.length - 1) {
       const curArticle = articles.find(article => article.id == articleId)
       curArticle.lastPage = i
+      pages[i].element.classList.add('article-last-page')
     }
 
     lastId = articleId
@@ -111,6 +120,14 @@ function drawBackgrounds (pages) {
     canvas.width = rect.width
     canvas.height = rect.height
 
+    canvas.width = rect.width * window.devicePixelRatio
+    canvas.height = rect.height * window.devicePixelRatio
+
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+
+    canvas.style.width = rect.width + 'px'
+    canvas.style.height = rect.height + 'px'
+
     ctx.lineWidth = 10
     ctx.lineCap = 'round'
 
@@ -121,29 +138,29 @@ function drawBackgrounds (pages) {
 
     ctx.beginPath()
     ctx.moveTo(0, 0)
-    ctx.lineTo(canvas.width, 0)
-    ctx.lineTo(canvas.width, canvas.height * Math.random() * 0.3)
+    ctx.lineTo(rect.width, 0)
+    ctx.lineTo(rect.width, rect.height * Math.random() * 0.3)
     ctx.bezierCurveTo(
-      (0.5 * canvas.width) + (canvas.width * Math.random() * 0.25) , // cp1x
-      canvas.height * Math.random() * 0.3, // cp1y
-      canvas.width * Math.random() * 0.25, // cp2x
-      canvas.height * Math.random() * 0.3, // cp2y
+      (0.5 * rect.width) + (rect.width * Math.random() * 0.25) , // cp1x
+      rect.height * Math.random() * 0.3, // cp1y
+      rect.width * Math.random() * 0.25, // cp2x
+      rect.height * Math.random() * 0.3, // cp2y
       0, // x
-      canvas.height * Math.random() * 0.3 // y
+      rect.height * Math.random() * 0.3 // y
     )
     ctx.fill()
 
     ctx.beginPath()
-    ctx.moveTo(0, canvas.height)
-    ctx.lineTo(canvas.width, canvas.height)
-    ctx.lineTo(canvas.width, (0.7 * canvas.height) + (canvas.height * Math.random() * 0.3))
+    ctx.moveTo(0, rect.height)
+    ctx.lineTo(rect.width, rect.height)
+    ctx.lineTo(rect.width, (0.7 * rect.height) + (rect.height * Math.random() * 0.3))
     ctx.bezierCurveTo(
-      (0.5 * canvas.width) + (canvas.width * Math.random() * 0.25) , // cp1x
-      (canvas.height * 0.7) + (canvas.height * Math.random() * 0.3), // cp1y
-      canvas.width * Math.random() * 0.25, // cp2x
-      (canvas.height * 0.7) + (canvas.height * Math.random() * 0.3), // cp2y
+      (0.5 * rect.width) + (rect.width * Math.random() * 0.25) , // cp1x
+      (rect.height * 0.7) + (rect.height * Math.random() * 0.3), // cp1y
+      rect.width * Math.random() * 0.25, // cp2x
+      (rect.height * 0.7) + (rect.height * Math.random() * 0.3), // cp2y
       0, // x
-      (canvas.height * 0.7) + (canvas.height * Math.random() * 0.3) // y
+      (rect.height * 0.7) + (rect.height * Math.random() * 0.3) // y
     )
     ctx.fill()
 
@@ -160,7 +177,7 @@ function drawBackgrounds (pages) {
           const topHandleXOffset = string.positions[string.positions.length - 1][1]
           const topHandleYOffset = string.positions[string.positions.length - 1][2]
           
-          const bottomPos = Math.floor(Math.random() * canvas.width)
+          const bottomPos = Math.floor(Math.random() * rect.width)
 
           string.completed = true
 
@@ -170,9 +187,9 @@ function drawBackgrounds (pages) {
             topX - topHandleXOffset,
             topHandleYOffset,
             bottomPos,
-            0.5 * canvas.height,
+            0.5 * rect.height,
             bottomPos,
-            canvas.height * 0.5
+            rect.height * 0.5
           )
           ctx.stroke()
         }
@@ -204,10 +221,10 @@ function drawBackgrounds (pages) {
         if (!connectionCompleted) {
           // start string
 
-          const topPos = Math.floor(Math.random() * canvas.width)
-          const bottomX = Math.floor(Math.random() * canvas.width)
-          const bottomHandleXOffset = Math.floor(((Math.random() - 0.5) * 2) * canvas.width * 0.25)
-          const bottomHandleYOffset = Math.floor(0.4 * canvas.height)
+          const topPos = Math.floor(Math.random() * rect.width)
+          const bottomX = Math.floor(Math.random() * rect.width)
+          const bottomHandleXOffset = Math.floor(((Math.random() - 0.5) * 2) * rect.width * 0.25)
+          const bottomHandleYOffset = Math.floor(0.4 * rect.height)
 
           strings.push({
             startArticleIndex: article.id,
@@ -219,14 +236,14 @@ function drawBackgrounds (pages) {
           })
 
           ctx.beginPath()
-          ctx.moveTo(topPos, canvas.height * 0.5)
+          ctx.moveTo(topPos, rect.height * 0.5)
           ctx.bezierCurveTo(
             topPos,
-            canvas.height * 0.5,
+            rect.height * 0.5,
             bottomX + bottomHandleXOffset,
-            canvas.height - bottomHandleYOffset,
+            rect.height - bottomHandleYOffset,
             bottomX,
-            canvas.height
+            rect.height
           )
           ctx.stroke()
         }
@@ -245,9 +262,9 @@ function drawBackgrounds (pages) {
         const topX = string.positions[string.positions.length - 1][0]
         const topHandleXOffset = string.positions[string.positions.length - 1][1]
         const topHandleYOffset = string.positions[string.positions.length - 1][2]
-        const bottomX = Math.floor(Math.random() * canvas.width)
-        const bottomHandleXOffset = Math.floor(((Math.random() - 0.5) * 2) * canvas.width * 0.25)
-        const bottomHandleYOffset = Math.floor(0.4 * canvas.height)
+        const bottomX = Math.floor(Math.random() * rect.width)
+        const bottomHandleXOffset = Math.floor(((Math.random() - 0.5) * 2) * rect.width * 0.25)
+        const bottomHandleYOffset = Math.floor(0.4 * rect.height)
         string.positions.push([bottomX, bottomHandleXOffset, bottomHandleYOffset])
 
         ctx.beginPath()
@@ -256,9 +273,9 @@ function drawBackgrounds (pages) {
           topX - topHandleXOffset,
           topHandleYOffset,
           bottomX + bottomHandleXOffset,
-          canvas.height - bottomHandleYOffset,
+          rect.height - bottomHandleYOffset,
           bottomX,
-          canvas.height
+          rect.height
         )
         ctx.stroke()
 
@@ -273,9 +290,9 @@ function drawBackgrounds (pages) {
           topX - topHandleXOffset,
           topHandleYOffset,
           bottomX + bottomHandleXOffset,
-          canvas.height - bottomHandleYOffset,
+          rect.height - bottomHandleYOffset,
           bottomX,
-          canvas.height
+          rect.height
         )
         ctx.stroke()
       }
