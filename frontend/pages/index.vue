@@ -22,8 +22,7 @@ export default {
       curSource: {
         title: ''
       },
-      menuActive: false,
-      printActive: false
+      menuActive: false
     }
   },
   created () {
@@ -89,10 +88,6 @@ export default {
       :articles="articles"
       @article-click="articleClickHandler"
       @article-hover="articleHoverHandler"
-    />
-    <ArticleReaderPrint
-      v-if="printActive"
-      :articles="articles"
     />
   </div>
 </template>
