@@ -25,6 +25,9 @@ export default {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap'
       }
+    ],
+    script: [
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js' }
     ]
   },
 
@@ -46,7 +49,8 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    '@nuxtjs/markdownit'
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -58,6 +62,19 @@ export default {
       default: {
         httpEndpoint: process.env.BACKEND_URL || 'http://localhost:1337/graphql'
       }
+    }
+  },
+
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    injected: true,
+    use: [
+      'markdown-it-replace-link'
+    ],
+    replaceLink: function (link, env) {
+      return process.env.strapiBaseUri + link
     }
   }
 }

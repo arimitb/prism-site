@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.1-rc.5",
+    "@nuxtjs/markdownit": "^1.2.10",
     "core-js": "^3.6.5",
     "graphql": "^15.4.0",
-    "nuxt": "^2.14.6"
+    "markdown-it-replace-link": "^1.1.0",
+    "nuxt": "^2.14.6",
+    "pagedjs": "^0.1.43"
   },
   "devDependencies": {}
 }

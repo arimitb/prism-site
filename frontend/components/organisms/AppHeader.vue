@@ -1,8 +1,22 @@
+<script>
+export default {
+  props: {
+    sourceTitle: {
+      type: String,
+      required: false,
+      default: ''
+    }
+  }
+}
+</script>
+
 <template>
   <header class="app-header">
-    <AppHeaderMenuIcon />
+    <AppHeaderMenuIcon @click.native="$emit('menu-click')" />
     <AppHeaderTopic />
-    <AppHeaderSource />
+    <AppHeaderSource
+      :sourceTitle="sourceTitle"
+    />
   </header>
 </template>
 
@@ -16,12 +30,14 @@
 }
 
 .app-header > .app-header-menu-icon {
+  flex-shrink: 0;
   width: calc(2 * var(--un));
   height: 100%;
   border-right: var(--ln) solid var(--fg-col);
 }
 
 .app-header-topic {
+  flex-shrink: 0;
   border-right: var(--ln) solid var(--fg-col);
 }
 

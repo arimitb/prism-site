@@ -1,0 +1,102 @@
+p, h1, h2, h3, ul {
+  font-family: 'DM Sans';
+}
+
+p {
+  font-size: 4mm;
+}
+
+h1 {
+  font-size: 10mm;
+  string-set: title content(text);
+}
+
+h2 {
+  margin-top: 10mm;
+  font-size: 6mm;
+}
+
+h3 {
+  margin-top: 10mm;
+  font-size: 5mm;
+}
+
+ul {
+  padding-left: 4mm;
+  font-size: 4mm;
+}
+
+img {
+  width: 100%;
+}
+
+article {
+  break-before: page;
+}
+
+blockquote {
+  padding-left: 10mm;
+  margin-left: 0;
+  border-left: 1mm solid rgb(200, 200, 200);
+}
+
+.pagedjs_page {
+  /* border: 1px solid red; */
+}
+
+.article-content {
+  width: 160mm;
+  column-count: 2;
+  column-gap: 10mm;
+}
+
+.article-content > *:first-child {
+  margin-top: 0;
+}
+
+.article-info {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 20mm;
+  font-family: 'DM Sans';
+}
+
+.article-info > img {
+  width: 10mm;
+  height: 10mm;
+  margin-right: 4mm;
+  border-radius: 50%;
+}
+
+.article-info > div > div:last-child {
+  color: rgb(150, 150, 150);
+  font-size: 3mm;
+  font-style: italic;
+}
+
+.bg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.article-first-page .pagedjs_margin-top-left {
+  opacity: 0;
+}
+
+@page {
+  @top-left {
+    content: string(title);
+    font-family: 'DM Sans';
+    font-weight: 700;
+  }
+
+  @bottom-left {
+    content: counter(page);
+    font-family: 'DM Sans';
+    font-weight: 700;
+  }
+}
