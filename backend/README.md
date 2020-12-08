@@ -6,7 +6,7 @@
 # install dependencies
 $ yarn install
 
-# running on localhost:1337
+# run on localhost:1337
 $ yarn strapi dev
 ```
 
